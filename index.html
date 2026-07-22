@@ -101,3 +101,223 @@ button{
     Nhắn Zalo: 0396929922
   </a>
 </div>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán Gói Dịch Vụ</title>
+  <style>
+    /* Reset & CSS Cơ bản */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Card sản phẩm mẫu */
+    .card {
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 350px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+      color: #38bdf8;
+    }
+
+    .card .price {
+      font-size: 28px;
+      font-weight: bold;
+      color: #38bdf8;
+      margin-bottom: 20px;
+    }
+
+    .btn-buy {
+      background-color: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    .btn-buy:hover {
+      background-color: #0369a1;
+    }
+
+    /* Modal Pop-up Thanh toán */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      display: none; /* Mặc định ẩn */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 22px;
+      color: #94a3b8;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .modal-content h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    /* Phần hiển thị QR */
+    .qr-box {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .qr-box img {
+      width: 200px;
+      height: 200px;
+      display: block;
+    }
+
+    .account-name {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .account-name strong {
+      color: #38bdf8;
+    }
+
+    /* Nút Zalo Card */
+    .card-payment-option {
+      border-top: 1px solid #334155;
+      padding-top: 15px;
+      margin-top: 10px;
+    }
+
+    .card-payment-option p {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+    }
+
+    .btn-zalo {
+      display: inline-block;
+      background-color: #2563eb;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .btn-zalo:hover {
+      background-color: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nút Mua hàng mẫu -->
+  <div class="card">
+    <h2>Gói 1 Năm</h2>
+    <div class="price">250.000đ</div>
+    <button class="btn-buy" onclick="openPaymentModal()">Mua Ngay</button>
+  </div>
+
+  <!-- Bảng thanh toán khi ấn Mua -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closePaymentModal()">&times;</button>
+      
+      <h3>Thanh Toán Đơn Hàng</h3>
+      
+      <!-- Khung mã QR (Thay link ảnh QR của bạn ở thẻ img) -->
+      <div class="qr-box">
+        <img src="qr-code.png" alt="Mã QR Thanh Toán">
+      </div>
+      
+      <p class="account-name">Chủ tài khoản: <strong>NGUYEN PHUONG THAO</strong></p>
+      
+      <!-- Khung lựa chọn thanh toán qua Thẻ cào / Zalo -->
+      <div class="card-payment-option">
+        <p>Thanh toán bằng <strong>Thẻ cào (Card)</strong> hoặc cần hỗ trợ?</p>
+        <a href="https://zalo.me/0396929922" target="_blank" class="btn-zalo">
+          💬 Nhắn Zalo: 0396929922
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript xử lý Bật / Tắt bảng Popup -->
+  <script>
+    function openPaymentModal() {
+      document.getElementById('paymentModal').style.display = 'flex';
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    // Đóng bảng nếu người dùng bấm ra ngoài nền đen
+    window.onclick = function(event) {
+      const modal = document.getElementById('paymentModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+</html>
